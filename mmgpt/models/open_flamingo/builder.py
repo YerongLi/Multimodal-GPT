@@ -55,8 +55,8 @@ def create_model_and_transforms(
 
     print("init llama")
     quantization_config = BitsAndBytesConfig(
-    load_in_4bit=training_args.bits == 4,
-    load_in_8bit=training_args.bits == 8,
+    load_in_4bit = True,
+    load_in_8bit = False ,
     llm_int8_threshold=6.0,
     llm_int8_has_fp16_weight=False,
     bnb_4bit_use_double_quant=training_args.double_quant,
