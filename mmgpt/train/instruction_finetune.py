@@ -1,5 +1,5 @@
 """Modified from https://github.com/mlfoundations/open_flamingo"""
-
+import inspect
 import argparse
 import copy
 import glob
@@ -387,6 +387,16 @@ def train_one_epoch(
         labels = batch["labels"].to(device_id, dtype=cast_dtype, non_blocking=True)
 
         with autocast():
+
+            parameters = inspect.signature(model.forward).parameters
+            required_params = [param for param in parameters.values() if param.default == inspect.Parameter.empty and param.name != 'self']
+
+            print("Parameters required by model.forward():")
+            print(f"Count: {len(required_params)}")
+            for i, param in enumerate(required_params, 1):
+                print(f"{i}. {param.name}")
+
+ 
             loss_batch = model(
                 vision_x=images,
                 lang_x=input_ids,
