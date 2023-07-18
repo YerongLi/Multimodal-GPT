@@ -67,7 +67,7 @@ def create_model_and_transforms(
     # lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path)
     if DEBUG == 1:
         lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path, quantization_config=quantization_config)
-        lang_encoder = prepare_model_for_kbit_training(lang_encoder)
+        # lang_encoder = prepare_model_for_kbit_training(lang_encoder)
     else: 
         lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path)
 
@@ -97,6 +97,8 @@ def create_model_and_transforms(
     assert sum(p.numel() for p in model.parameters() if p.requires_grad) == 0
 
     if tuning_config is not None:
+        if DEBUG == 1: model = prepare_model_for_kbit_training(model)
+
         model = prepare_model_for_tuning(model, tuning_config)
     else:
         raise ValueError("tuning_config must be provided")
