@@ -7,6 +7,7 @@ visual_datasets = [
             "data/llava/complex_reasoning_77k.json",
         ],
     ),
+    ]
 
 language_datasets = [
     dict(
