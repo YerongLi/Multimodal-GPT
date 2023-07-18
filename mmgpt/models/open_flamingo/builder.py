@@ -4,7 +4,8 @@ import torch
 import torch.nn as nn
 from bigmodelvis import Visualization
 from peft import LoraConfig, get_peft_model
-from transformers import LlamaForCausalLM, LlamaTokenizer,BitsAndBytesConfig
+# from transformers import LlamaForCausalLM, LlamaTokenizer,BitsAndBytesConfig
+from transformers import AutoModelForCausalLM, AutoTokenizer,BitsAndBytesConfig
 
 from .flamingo import Flamingo
 from .flamingo_lm import FlamingoLMMixin
