@@ -1,12 +1,10 @@
 visual_datasets = [
     dict(
-        type="coco_caption",
-        vis_root="data/coco",
+        type="llava_dial",
+        vis_root="data/coco/train2017",
         ann_paths=[
-            "data/coco/annotations/coco_karpathy_train_converted.json",
-            "data/coco/annotations/coco_karpathy_val.json",
+            "data/llava/conversation_58k.json",
         ],
-        sample=512,
     ),
     ]
 
