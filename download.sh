@@ -11,7 +11,7 @@ mkdir -p "$DEST_DIR"
 wget -P "$DEST_DIR" "$URL"
 
 # Extract the contents of the downloaded file
-tar -xzvf "$DEST_DIR/model.tar.gz" -C "$DEST_DIR"
+# tar -xzvf "$DEST_DIR/model.tar.gz" -C "$DEST_DIR"
 
 # Remove the downloaded tar.gz file (optional)
-rm "$DEST_DIR/model.tar.gz"
+# rm "$DEST_DIR/model.tar.gz"
