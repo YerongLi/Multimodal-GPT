@@ -49,7 +49,16 @@ Traceback (most recent call last):
     return forward_call(*args, **kwargs)           
 TypeError: forward() takes from 2 to 3 positional arguments but 7 were given                            
 ```
-
+```
+Parameters required by model.forward():
+Count: 2
+1. inputs
+2. kwargs
+/scratch/yerong/.conda/envs/mmgpt/lib/python3.9/site-packages/torch/utils/checkpoint.py:31: UserWarning: None of the i
+nputs have requires_grad=True. Gradients will be None
+  warnings.warn("None of the inputs have requires_grad=True. Gradients will be None")
+  0%|               
+```
 DEBUG = 0
 ```
  ======= Number of trainable parameters: 2932736
@@ -65,10 +74,11 @@ DEBUG = 0
 |    0   N/A  N/A     16326      C   ...nda/envs/mmgpt/bin/python    57021MiB |
 +-----------------------------------------------------------------------------+
 
-```
 
-DEBUG = 1
-
+Parameters required by model.forward():
+Count: 2
+1. inputs
+2. kwargs
+/scratch/yerong/.conda/envs/mmgpt/lib/python3.9/site-packages/torch/utils/checkpoint.py:31: UserWarning: None of the i
 ```
-TODO
-```
+`
