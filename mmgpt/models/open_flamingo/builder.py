@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 from bigmodelvis import Visualization
 from peft import LoraConfig, get_peft_model
-from transformers import LlamaForCausalLM, LlamaTokenizer
+from transformers import LlamaForCausalLM, LlamaTokenizer,BitsAndBytesConfig
 
 from .flamingo import Flamingo
 from .flamingo_lm import FlamingoLMMixin
@@ -54,7 +54,16 @@ def create_model_and_transforms(
     text_tokenizer.eos_token_id = 2
 
     print("init llama")
-    lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path)
+    quantization_config = BitsAndBytesConfig(
+    load_in_4bit=training_args.bits == 4,
+    load_in_8bit=training_args.bits == 8,
+    llm_int8_threshold=6.0,
+    llm_int8_has_fp16_weight=False,
+    bnb_4bit_use_double_quant=training_args.double_quant,
+    bnb_4bit_quant_type=training_args.quant_type,
+    bnb_4bit_compute_dtype=compute_dtype
+    )
+    lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path, quantization_config=quantization_config)
     extend_instance(lang_encoder, FlamingoLMMixin)
 
     if decoder_layers_attr_name is None:
