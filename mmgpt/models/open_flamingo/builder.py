@@ -105,7 +105,7 @@ def create_model_and_transforms(
         f"Flamingo model initialized with {sum(p.numel() for p in model.parameters() if p.requires_grad)} trainable parameters"
     )
 
-    if DEBUG == 1: model = prepare_model_for_kbit_training(model)
+    # if DEBUG == 1: model = prepare_model_for_kbit_training(model)
 
     def count_parameters(model):
         return sum(p.numel() for p in model.parameters() if p.requires_grad)
