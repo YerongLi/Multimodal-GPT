@@ -7,5 +7,4 @@ torchrun --nproc_per_node=8 mmgpt/train/instruction_finetune.py \
   --lr_scheduler cosine \
   --batch_size 1 \ 
   --tuning_config configs/lora_config.py \
-  --dataset_config configs/dataset_config.py \
-  --report_to_wandb
+  --dataset_config configs/dataset_config.py
