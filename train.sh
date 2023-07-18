@@ -1,5 +1,5 @@
 torchrun --nproc_per_node=1 mmgpt/train/instruction_finetune.py \
-  --lm_path /scratch/yerong/.cache/pyllama/hf/7B \
+  --lm_path EleutherAI/gpt-neo-1.3B \
   --tokenizer_path /scratch/yerong/.cache/pyllama/hf/7B \
   --pretrained_path OpenFlamingo-9B/checkpoint.pt \
   --run_name train-my-gpt4 \
