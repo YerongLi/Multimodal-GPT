@@ -3,7 +3,7 @@ import open_clip
 import torch
 import torch.nn as nn
 from bigmodelvis import Visualization
-from peft import LoraConfig, get_peft_model
+from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from transformers import LlamaForCausalLM, LlamaTokenizer,BitsAndBytesConfig
 # from transformers import AutoModelForCausalLM, AutoTokenizer,BitsAndBytesConfig
 
@@ -45,7 +45,6 @@ def create_model_and_transforms(
     vision_encoder.visual.output_tokens = True
     print("init tokenizer")
     text_tokenizer = LlamaTokenizer.from_pretrained(tokenizer_path)
-    # text_tokenizer = AutoTokenizer.from_pretrained(tokenizer_path)
     # add Flamingo special tokens to the tokenizer
     text_tokenizer.add_special_tokens({"additional_special_tokens": ["<|endofchunk|>", "<image>"]})
     if text_tokenizer.pad_token is None:
@@ -65,8 +64,9 @@ def create_model_and_transforms(
     bnb_4bit_quant_type="nf4",
     bnb_4bit_compute_dtype=torch.float16
     )
-    lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path)
-    # lang_encoder = AutoModelForCausalLM.from_pretrained(lang_encoder_path)
+    # lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path)
+    lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path, quantization_config=quantization_config)
+    lang_encoder = prepare_model_for_kbit_training(lang_encoder)
     extend_instance(lang_encoder, FlamingoLMMixin)
 
     if decoder_layers_attr_name is None:
