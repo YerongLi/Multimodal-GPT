@@ -63,7 +63,7 @@ def create_model_and_transforms(
     bnb_4bit_quant_type="nf4",
     bnb_4bit_compute_dtype=torch.float16
     )
-    lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path, quantization_config=quantization_config)
+    lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path)
     extend_instance(lang_encoder, FlamingoLMMixin)
 
     if decoder_layers_attr_name is None:
