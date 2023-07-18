@@ -59,9 +59,9 @@ def create_model_and_transforms(
     load_in_8bit = False ,
     llm_int8_threshold=6.0,
     llm_int8_has_fp16_weight=False,
-    bnb_4bit_use_double_quant=training_args.double_quant,
-    bnb_4bit_quant_type=training_args.quant_type,
-    bnb_4bit_compute_dtype=compute_dtype
+    bnb_4bit_use_double_quant=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=torch.float16
     )
     lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path, quantization_config=quantization_config)
     extend_instance(lang_encoder, FlamingoLMMixin)
