@@ -97,7 +97,17 @@ def create_model_and_transforms(
     assert sum(p.numel() for p in model.parameters() if p.requires_grad) == 0
 
     if tuning_config is not None:
-        if DEBUG == 1: model = prepare_model_for_kbit_training(model)
+        if DEBUG == 1: 
+            model = prepare_model_for_kbit_training(model)
+            model.restart(
+            vision_encoder,
+            lang_encoder,
+            text_tokenizer.encode("<|endofchunk|>")[-1],
+            text_tokenizer.encode("<image>")[-1],
+            vis_dim=open_clip.get_model_config(clip_vision_encoder_path)["vision_cfg"]["width"],
+            cross_attn_every_n_layers=4,
+            **flamingo_kwargs,
+            )
 
         model = prepare_model_for_tuning(model, tuning_config)
     else:

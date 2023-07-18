@@ -43,6 +43,43 @@ class Flamingo(nn.Module):
             use_media_placement_augmentation=self.use_media_placement_augmentation,
         )
 
+    def restart(
+        self,
+        vision_encoder: nn.Module,
+        lang_encoder: nn.Module,
+        eoc_token_id: int,
+        media_token_id: int,
+        vis_dim: int,
+        cross_attn_every_n_layers: int = 1,
+        use_media_placement_augmentation: bool = False,
+    ):
+        """
+        Args:
+            vision_encoder (nn.Module): HF CLIPModel
+            lang_encoder (nn.Module): HF causal language model
+            eoc_token_id (int): Token id for <|endofchunk|>
+            media_token_id (int): Token id for <image>
+            vis_dim (int): Dimension of the visual features.
+                Visual features are projected to match this shape along the last dimension.
+            cross_attn_every_n_layers (int, optional): How often to apply cross attention after transformer layer. Defaults to 1.
+            use_media_placement_augmentation (bool, optional): Whether to randomly assign images to the preceding or following text in training. Defaults to False.
+        """
+        # super().__init__()
+        # self.eoc_token_id = eoc_token_id
+        # self.media_token_id = media_token_id
+        # self.use_media_placement_augmentation = use_media_placement_augmentation
+        # self.vis_dim = vis_dim
+        # self.vision_encoder = vision_encoder
+        # self.perceiver = PerceiverResampler(dim=self.vis_dim)
+        # self.lang_encoder = lang_encoder
+        self.lang_encoder.init_flamingo(
+            media_token_id=media_token_id,
+            vis_hidden_size=self.vis_dim,
+            cross_attn_every_n_layers=cross_attn_every_n_layers,
+            use_media_placement_augmentation=self.use_media_placement_augmentation,
+        )
+
+
     def forward(
         self,
         vision_x: torch.Tensor,
