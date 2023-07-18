@@ -1,13 +1,23 @@
 ```
-   obj, end = self.raw_decode(s, idx=_w(s, 0).end())
-  File "/scratch/yerong/.conda/envs/mmgpt/lib/python3.9/json/decoder.py", line 355, in raw_decode
-    raise JSONDecodeError("Expecting value", s, err.value) from None
-json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0) 
-ERROR:torch.distributed.elastic.multiprocessing.api:failed (exitcode: 1) local_rank: 0 (pid: 27770) of binary: /scratch/yerong/.conda/envs/mmg
-pt/bin/python
-Traceback (most recent call last):
-  File "/scratch/yerong/.conda/envs/mmgpt/bin/torchrun", line 8, in <module>
-    sys.exit(main())
-  File "/scratch/yerong/.conda/envs/mmgpt/lib/python3.9/site-pack
+Start running training on rank 0.                                                                                                    [15/1874]
+Traceback (most recent call last):                                                                                                            
+  File "/scratch/yerong/Multimodal-GPT/mmgpt/train/instruction_finetune.py", line 460, in <module>                                            
+    main()                                                                                                                                    
+  File "/scratch/yerong/Multimodal-GPT/mmgpt/train/instruction_finetune.py", line 218, in main                                                
+    model = model.to(device_id)                                                                                                               
+  File "/scratch/yerong/.conda/envs/mmgpt/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1145, in to                           
+    return self._apply(convert)                                                                                                               
+  File "/scratch/yerong/.conda/envs/mmgpt/lib/python3.9/site-packages/torch/nn/modules/module.py", line 797, in _apply                        
+    module._apply(fn)                                                                                                                         
+  File "/scratch/yerong/.conda/envs/mmgpt/lib/python3.9/site-packages/torch/nn/modules/module.py", line 797, in _apply                        
+    module._apply(fn)                                                                                                                         
+  File "/scratch/yerong/.conda/envs/mmgpt/lib/python3.9/site-packages/torch/nn/modules/module.py", line 797, in _apply                        
+    module._apply(fn)                                                                                                                         
+  [Previous line repeated 1 more time]                                                                                                        
+  File "/scratch/yerong/.conda/envs/mmgpt/lib/python3.9/site-packages/torch/nn/modules/module.py", line 820, in _apply                        
+    param_applied = fn(param)
+  File "/scratch/yerong/.conda/envs/mmgpt/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1143, in convert
+    return t.to(device, dtype if t.is_floating_point() or t.is_complex() else None, non_blocking)
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 502.00 MiB (GP
 ```
 Huggingface download got some problem, also change to llava not llava dialogue.
