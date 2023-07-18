@@ -11,7 +11,7 @@ from .flamingo import Flamingo
 from .flamingo_lm import FlamingoLMMixin
 from .utils import extend_instance
 
-
+DEBUG = 0
 def create_model_and_transforms(
     clip_vision_encoder_path: str,
     clip_vision_encoder_pretrained: str,
@@ -65,8 +65,12 @@ def create_model_and_transforms(
     bnb_4bit_compute_dtype=torch.float16
     )
     # lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path)
-    lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path, quantization_config=quantization_config)
-    lang_encoder = prepare_model_for_kbit_training(lang_encoder)
+    if DEBUG == 1:
+        lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path, quantization_config=quantization_config)
+        lang_encoder = prepare_model_for_kbit_training(lang_encoder)
+    else: 
+        lang_encoder = LlamaForCausalLM.from_pretrained(lang_encoder_path)
+
     extend_instance(lang_encoder, FlamingoLMMixin)
 
     if decoder_layers_attr_name is None:
@@ -100,6 +104,15 @@ def create_model_and_transforms(
     print(
         f"Flamingo model initialized with {sum(p.numel() for p in model.parameters() if p.requires_grad)} trainable parameters"
     )
+
+
+    def count_parameters(model):
+        return sum(p.numel() for p in model.parameters() if p.requires_grad)
+
+    # Example usage
+    num_params = count_parameters(model)
+    print(f" ======= Number of trainable parameters: {num_params}")
+
 
     return model, image_processor, text_tokenizer
 
