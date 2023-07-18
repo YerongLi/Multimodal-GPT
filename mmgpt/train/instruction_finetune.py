@@ -216,9 +216,19 @@ def main():
 
     device_id = args.rank % torch.cuda.device_count()
     model = model.to(device_id)
+    def count_parameters(model):
+        return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
+    # Example usage
+    num_params = count_parameters(model)
+    print(f" ======= Number of trainable parameters: {num_params}")
     ddp_model = DDP(model, device_ids=[device_id], find_unused_parameters=True)
+    def count_parameters(model):
+        return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
+    # Example usage
+    num_params = count_parameters(ddp_model)
+    print(f" ======= Number of trainable ddp parameters: {num_params}")
     def get_grouped_params(model):
         params_with_wd, params_without_wd = [], []
 
