@@ -40,3 +40,26 @@ Traceback (most recent call last):
     layer_outputs = torch.utils.checkpoint.checkpoint(
   File "/scratch/yerong/.conda/envs/mmgpt/lib/python3.9/site-packages/torch/utils/checkpoint.py", line 249, in checkpoint
 ```
+
+DEBUG = 0
+```
+ ======= Number of trainable parameters: 2932736
+
+|                               |                      |             Disabled |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A     16326      C   ...nda/envs/mmgpt/bin/python    57021MiB |
++-----------------------------------------------------------------------------+
+
+```
+
+DEBUG = 1
+
+```
+TODO
+```
